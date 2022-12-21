@@ -8,22 +8,47 @@ const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rho
 
 const app = express();
 
+let allPosts = [];
+
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 
+app.get("/", function(req, res){
+  console.log(allPosts);
+  res.render("home", {
+    homeStartingContent: homeStartingContent,
+    allPosts: allPosts
+  });
+});
 
+app.get("/about", function(req, res){
+  res.render("about", {
+    aboutContent: aboutContent
+  });
+});
 
+app.get("/contact", function(req, res){
+  res.render("contact", {
+    contactContent: contactContent
+  });
+});
 
+app.get("/compose", function(req, res){
+  res.render("compose");
+});
 
-
-
-
-
-
-
+app.post("/compose", function(req, res){
+  const postContent = {
+    postTitle : req.body.postTitle,
+    postBody: req.body.postBody
+  };
+  //console.log(postContent);
+  allPosts.push(postContent);
+  res.redirect("/");
+})
 
 
 app.listen(3000, function() {
