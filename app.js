@@ -17,7 +17,7 @@ app.use(express.static("public"));
 
 
 app.get("/", function(req, res){
-  console.log(allPosts);
+  //console.log(allPosts);
   res.render("home", {
     homeStartingContent: homeStartingContent,
     allPosts: allPosts
@@ -48,7 +48,18 @@ app.post("/compose", function(req, res){
   //console.log(postContent);
   allPosts.push(postContent);
   res.redirect("/");
-})
+});
+
+app.get("/post/:postId", function(req, res){
+  const postId = req.params.postId - 1;
+  if(postId < allPosts.length) {
+    res.render("post", {
+      postTitle: allPosts[postId].postTitle,
+      postBody: allPosts[postId].postBody
+    }); } else {
+      res.redirect("/");
+    }
+});
 
 
 app.listen(3000, function() {
