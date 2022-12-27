@@ -3,13 +3,13 @@
 <p><%= homeStartingContent %></p>
 
 <% for( let i = 0; i < allPosts.length; i++ ) { %>
-    <h1><%= allPosts[i].postTitle %></h1>
-    <p><% if (allPosts[i].postBody.length > 100) { %>
-        <%= allPosts[i].postBody.substring(0, 100); %> 
-        <a href="/post/<%= i+1 %> "> ... read more</a>
+    <h1><%= allPosts[i].title %></h1>
+    <p><% if (allPosts[i].body.length > 100) { %>
+        <%= allPosts[i].body.substring(0, 100); %> 
+        <a href="/post/<%= allPosts[i]._id %> "> ... read more</a>
     <% } else { %>
-        <%= allPosts[i].postBody %>
-        <a href="/post/<%= i+1 %> "> read more</a>
+        <%= allPosts[i].body %>
+        <a href="/post/<%= allPosts[i]._id %> "> read more</a>
     <% }  %>
     </p>
 <% } %>
